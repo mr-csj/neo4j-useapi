@@ -120,6 +120,7 @@ public class Friends
         }
     }
 
+    //广度优先
     private Traverser getFriends( final Node person )
     {
         TraversalDescription td = graphDb.traversalDescription()
@@ -129,6 +130,7 @@ public class Friends
         return td.traverse( person );
     }
 
+    //深度优先
     private Traverser getFriendsDepth( final Node person )
     {
         TraversalDescription td = graphDb.traversalDescription()
