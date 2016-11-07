@@ -49,6 +49,6 @@
     <orderEntry type="library" name="Maven: com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2" level="project" />
     <orderEntry type="library" name="Maven: org.neo4j:neo4j-jmx:3.0.6" level="project" />
     <orderEntry type="library" name="Maven: org.neo4j:neo4j-consistency-check:3.0.6" level="project" />
-    <orderEntry type="library" name="Maven: org.neo4j.driver:neo4j-java-driver:1.0.3" level="project" />
+    <orderEntry type="library" name="Maven: org.neo4j.driver:neo4j-java-driver:1.0.6" level="project" />
   </component>
 </module>
