@@ -42,8 +42,7 @@ public class ManualIndex
 
             for ( Node user : nodeIndex.query( USERNAME_KEY, "*" ) )
             {
-                nodeIndex.remove(  user, USERNAME_KEY,
-                        user.getProperty( USERNAME_KEY ) );
+                nodeIndex.remove(  user, USERNAME_KEY, user.getProperty( USERNAME_KEY ) );
                 user.delete();
             }
             tx.success();

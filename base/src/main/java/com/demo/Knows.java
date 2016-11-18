@@ -15,7 +15,11 @@ public class Knows
     public static void main( final String[] args ) throws IOException
     {
         Knows knows = new Knows();
+        System.out.println("-------------create:");
         knows.create();
+        System.out.println("-------------edit:");
+        knows.edit();
+        System.out.println("-------------remove:");
         knows.remove();
         knows.shutDown();
     }
@@ -41,6 +45,24 @@ public class Knows
             System.out.println("create node name is " + first.getProperty("name"));
             System.out.println("create node name is " + second.getProperty("name"));
             System.out.println("create relationship type is " + relationship.getType());
+
+            tx.success();
+        }
+    }
+
+    public void edit(){
+        try ( Transaction tx = graphDb.beginTx() )
+        {
+            Label label = Label.label("Person");
+            Node node = graphDb.findNode(label, "name", "second");
+
+            System.out.println("query node name is " + node.getProperty("name"));
+
+            node.setProperty("name", "My name");
+            node.setProperty("sex", "男");
+
+            System.out.println("edit node name is " + node.getProperty("name"));
+            System.out.println("add property sex is " + node.getProperty("sex"));
 
             tx.success();
         }
