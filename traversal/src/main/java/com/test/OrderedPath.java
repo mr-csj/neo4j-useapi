@@ -24,7 +24,8 @@ import static org.neo4j.graphdb.RelationshipType.withName;
 
 public class OrderedPath
 {
-    private static final RelationshipType REL1 = withName( "REL1" ), REL2 = withName( "REL2" ), REL3 = withName( "REL3" );
+    private static final RelationshipType R1 = withName( "R1" ), R2 = withName( "R2" ),
+            R3 = withName( "R3" ), R4 = withName( "R4" ), R5 = withName( "R5" );
     static final File DB_PATH = new File( "target/neo4j-orderedpath-db" );
     static GraphDatabaseService db;
 
@@ -49,16 +50,21 @@ public class OrderedPath
             Node B = db.createNode();
             Node C = db.createNode();
             Node D = db.createNode();
-
-            A.createRelationshipTo( C, REL2 );
-            C.createRelationshipTo( D, REL3 );
-            A.createRelationshipTo( B, REL1 );
-            B.createRelationshipTo( C, REL2 );
+            Node E = db.createNode();
 
             A.setProperty( "name", "A" );
             B.setProperty( "name", "B" );
             C.setProperty( "name", "C" );
             D.setProperty( "name", "D" );
+            E.setProperty("name", "E");
+
+            A.createRelationshipTo( B, R1 );
+            B.createRelationshipTo( C, R2 );
+            C.createRelationshipTo( D, R3 );
+            A.createRelationshipTo( C, R2 );
+            C.createRelationshipTo( E, R5 );
+            D.createRelationshipTo(E, R4);
+
             tx.success();
             return A;
         }
@@ -81,13 +87,11 @@ public class OrderedPath
 
     public TraversalDescription findPaths()
     {
-        final ArrayList<RelationshipType> orderedPathContext = new ArrayList<RelationshipType>();
-        orderedPathContext.add( REL1 );
-        orderedPathContext.add(REL2);
-        orderedPathContext.add(REL3);
-        TraversalDescription td = db.traversalDescription()
-                .evaluator( new Evaluator()
-                {
+        final ArrayList<RelationshipType> orderPaths = new ArrayList<RelationshipType>();
+        orderPaths.add(R1);
+        orderPaths.add(R2);
+        orderPaths.add(R3);
+        TraversalDescription td = db.traversalDescription().evaluator( new Evaluator(){
                     @Override
                     public Evaluation evaluate( final Path path )
                     {
@@ -95,11 +99,11 @@ public class OrderedPath
                         {
                             return Evaluation.EXCLUDE_AND_CONTINUE;
                         }
-                        RelationshipType expectedType = orderedPathContext.get( path.length() - 1 );
+                        RelationshipType expectedType = orderPaths.get( path.length() - 1 );
                         boolean isExpectedType = path.lastRelationship()
                                 .isType( expectedType );
-                        boolean included = path.length() == orderedPathContext.size() && isExpectedType;
-                        boolean continued = path.length() < orderedPathContext.size() && isExpectedType;
+                        boolean included = path.length() == orderPaths.size() && isExpectedType;
+                        boolean continued = path.length() < orderPaths.size() && isExpectedType;
                         return Evaluation.of( included, continued );
                     }
                 } )
