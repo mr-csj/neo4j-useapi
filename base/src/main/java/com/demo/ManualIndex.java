@@ -13,7 +13,7 @@ import org.neo4j.io.fs.FileUtils;
 public class ManualIndex
 {
     private static final File DB_PATH = new File( "target/neo4j-store" );
-    private static final String USERNAME_KEY = "username";
+    private static final String USERNAME_KEY = "name";
     private static GraphDatabaseService graphDb;
     private static Index<Node> nodeIndex;
 
@@ -36,7 +36,7 @@ public class ManualIndex
             String userName = idToUserName( idToFind );
             Node foundUser = nodeIndex.get( USERNAME_KEY, userName ).getSingle();
 
-            System.out.println( "The username of user " + idToFind + " is "
+            System.out.println( "The name of user " + idToFind + " is "
                     + foundUser.getProperty( USERNAME_KEY ) );
 
 

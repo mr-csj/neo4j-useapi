@@ -52,17 +52,17 @@ public class OrderedPath
             Node D = db.createNode();
             Node E = db.createNode();
 
-            A.setProperty( "name", "A" );
-            B.setProperty( "name", "B" );
-            C.setProperty( "name", "C" );
-            D.setProperty( "name", "D" );
+            A.setProperty("name", "A");
+            B.setProperty("name", "B");
+            C.setProperty("name", "C");
+            D.setProperty("name", "D");
             E.setProperty("name", "E");
 
-            A.createRelationshipTo( B, R1 );
-            B.createRelationshipTo( C, R2 );
-            C.createRelationshipTo( D, R3 );
-            A.createRelationshipTo( C, R2 );
-            C.createRelationshipTo( E, R5 );
+            A.createRelationshipTo(B, R1);
+            B.createRelationshipTo(C, R2);
+            C.createRelationshipTo(D, R3);
+            A.createRelationshipTo(C, R2);
+            C.createRelationshipTo(E, R5);
             D.createRelationshipTo(E, R4);
 
             tx.success();

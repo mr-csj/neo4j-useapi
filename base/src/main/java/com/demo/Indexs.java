@@ -22,6 +22,7 @@ public class Indexs {
 
         createIndex(graphDb);
         createUser(graphDb);
+        updateUser(graphDb, 0);
         updateUser(graphDb, 1);
         updateUser(graphDb, 2);
         findUser(graphDb);

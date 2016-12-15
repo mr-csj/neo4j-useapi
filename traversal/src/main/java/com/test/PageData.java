@@ -48,7 +48,7 @@ public class PageData {
     public Map<String, Object> findPage(Map<String, Object> params){
         Map<String, Object> page = new HashMap<>();
         try ( Transaction tx = graphDb.beginTx() ) {
-            String query = "MATCH (n) WHERE n.name =~ {name} RETURN n skip {skip} limit {limit}";
+            String query = "MATCH (n) WHERE n.name =~ {name} RETURN n SKIP {skip} LIMIT {limit}";
             Result result = graphDb.execute(query, params);
             Iterator<Node> n_column = result.columnAs("n");
 
